@@ -13,3 +13,14 @@
   background-color: rgb(54 83 20);
   color: white
 }
+
+input[type='date'] {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-family: inherit;
+}
+
+ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}

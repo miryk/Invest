@@ -14,12 +14,20 @@ import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { NumericFormat } from "react-number-format";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import PaymentRow from "./PaymentRow";
 
 const AddBonoForm = () => {
   const [paymentTimes, setPaymentTimes] = useState(5);
   const [assetType, setAssetType] = useState("Bono");
 
-  const initialValues = {
+  const handleTimes = () => {
+    setPaymentTimes(paymentTimes+1);
+    console.log(paymentTimes+1)
+    console.log(initialValues.payments)
+  }
+
+  let initialValues = {
     issuingEntity: "",
     financialAsset: "Bono",
     capitalInvested: 0,
@@ -27,8 +35,11 @@ const AddBonoForm = () => {
     term: 0,
     nominalRate: 0,
     operationDate: "",
-    payments: [],
+    payments: Array(paymentTimes+1).fill({date:"", value:""})
+    // payments: [{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""}, {date:"", value: ""}]
   };
+
+  console.log(initialValues)
 
   const bonoValidationSchema = Yup.object().shape({
     issuingEntity: Yup.string().required(
@@ -59,7 +70,7 @@ const AddBonoForm = () => {
               type="text"
               variant="standard"
               label="Issuing Entity"
-              sx={{ width: "100%", marginBottom: "20px" }}
+              sx={{ width: "60%", marginBottom: "20px" }}
               helperText={
                 touched.issuingEntity &&
                 errors.issuingEntity && (
@@ -77,14 +88,18 @@ const AddBonoForm = () => {
                   value={assetType}
                   label="Financial Asset"
                   onChange={handleChange}
-                  sx={{ width: "350px"}}
+                  sx={{ width: "350px" }}
                 >
                   <MenuItem value={"Bono"}>Bono</MenuItem>
                 </Select>
               </Field>
             </div>
             <div className="my-2 py-2">
-              <Field as={FormControl} variant="standard">
+              <Field
+                as={FormControl}
+                variant="standard"
+                sx={{ width: "60%", marginBottom: "20px" }}
+              >
                 <InputLabel htmlFor="standard-adornment-amount">
                   Capital invested
                 </InputLabel>
@@ -95,20 +110,109 @@ const AddBonoForm = () => {
                   name="capitalInvested"
                   decimalScale={0}
                 >
-                  <InputLabel htmlFor="standard-adornment-amount">
+                  <InputLabel htmlFor="capitalInvested">
                     Capital invested
                   </InputLabel>
                   <Input
                     name="capitalInvested"
-                    id="standard-adornment-amount"
+                    id="capitalInvested"
                     endAdornment={
                       <InputAdornment position="start">Gs</InputAdornment>
                     }
                   />
                 </NumericFormat>
               </Field>
-
             </div>
+            <div className="my-2 py-2">
+              <Field
+                as={FormControl}
+                variant="standard"
+                sx={{ width: "60%", marginBottom: "20px" }}
+              >
+                <InputLabel htmlFor="term">Term</InputLabel>
+                <Input name="term" id="term" type="number" />
+              </Field>
+            </div>
+            <div className="my-2 py-2">
+              <Field
+                as={FormControl}
+                variant="standard"
+                sx={{ width: "60%", marginBottom: "20px" }}
+              >
+                <InputLabel>Nominal Rate</InputLabel>
+                <Input
+                  id="nominalRate"
+                  name="nominalRate"
+                  type="number"
+                  endAdornment={
+                    <InputAdornment position="start">%</InputAdornment>
+                  }
+                />
+              </Field>
+              </div>
+              <div className="my-2 py-2">
+                <Field dateAdapter={AdapterDayjs} name="operationDate">
+                  {({ field, form, meta }) => (
+                    <div className="flex flex-row items-center gap-4">
+                      <InputLabel>Operation Date:</InputLabel>
+                      <Input {...field} type="date" id="operationDate" />
+                    </div>
+                  )}
+                </Field>
+              </div>
+              <div className="my-2 py-2">
+                <Field
+                  as={TextField}
+                  name="series"
+                  label="Bond Series"
+                  type="search"
+                  variant="standard"
+                ></Field>
+              </div>
+              <div className="my-2 py-2">
+                <InputLabel>Payments: </InputLabel>
+                <PaymentRow rows={paymentTimes}/>
+                {/* <ol type="1">
+                  <li>
+                    <div className="flex flex-row items-center gap-4">
+                    <Field name="payments[0].date" dateAdapter={AdapterDayjs}>
+                      {({ field, form, meta }) => (
+                        <>
+                        <InputLabel>Pay date</InputLabel>
+                        <Input {...field} type="date" id='payments[0].date' sx={{padding: '5px'}}/>
+                        </>
+                      )}
+                    </Field>
+                    <Field  name="payments[0].value">
+                    {({ field, form, meta }) => (
+                        // <Input {...field} type="number"></Input>
+                        <NumericFormat
+                        customInput={FormControl}
+                        decimalSeparator=","
+                        thousandSeparator="."
+                        decimalScale={0}
+                        allowNegative={false}
+                        {...field}
+                      >
+                        <InputLabel htmlFor="capitalInvested">
+                          Payment value
+                        </InputLabel>
+                        <Input
+                          // name="capitalInvested"
+                          id="cpayments[0].value"
+                          name="payments[0].value"
+                          endAdornment={
+                            <InputAdornment position="start">Gs</InputAdornment>
+                          }
+                        />
+                      </NumericFormat>
+                      )}
+                    </Field> 
+                    </div>
+                  </li>
+                </ol> */}
+                <button onClick={handleTimes} type='button'>Add payment</button>
+              </div>
             <Box>
               <Button type="submit">Register new asset</Button>
             </Box>
