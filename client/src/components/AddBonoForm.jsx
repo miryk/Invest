@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import { NumericFormat } from "react-number-format";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PaymentRow from "./PaymentRow";
+import axios from 'axios'
 
 const AddBonoForm = () => {
   const [paymentTimes, setPaymentTimes] = useState(5);
@@ -28,6 +29,7 @@ const AddBonoForm = () => {
   }
 
   let initialValues = {
+    userID: "6406546f38d4e924941e1eb1",
     issuingEntity: "",
     financialAsset: "Bono",
     capitalInvested: 0,
@@ -39,7 +41,6 @@ const AddBonoForm = () => {
     // payments: [{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""}, {date:"", value: ""}]
   };
 
-  console.log(initialValues)
 
   const bonoValidationSchema = Yup.object().shape({
     issuingEntity: Yup.string().required(
@@ -47,8 +48,9 @@ const AddBonoForm = () => {
     ),
   });
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     console.log(values, "form values");
+    const response = await axios.post(`${import.meta.env.vite.VITE_REACT_API_URL}`)
   };
 
   const handleChange = (e) => {
