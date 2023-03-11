@@ -20,7 +20,7 @@ import axios from 'axios'
 
 const AddBonoForm = () => {
   const [paymentTimes, setPaymentTimes] = useState(5);
-  const [assetType, setAssetType] = useState("Bono");
+  const [assetType, setAssetType] = useState("Bond");
 
   const handleTimes = () => {
     setPaymentTimes(paymentTimes+1);
@@ -31,7 +31,7 @@ const AddBonoForm = () => {
   let initialValues = {
     userID: "6406546f38d4e924941e1eb1",
     issuingEntity: "",
-    financialAsset: "Bono",
+    financialAsset: "Bond",
     capitalInvested: 0,
     series: "",
     term: 0,
@@ -49,8 +49,15 @@ const AddBonoForm = () => {
   });
 
   const handleSubmit = async (values, actions) => {
-    console.log(values, "form values");
-    const response = await axios.post(`${import.meta.env.vite.VITE_REACT_API_URL}`)
+    try {
+      console.log(values, "form values");
+      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/newbond`, values);
+      if (response.status == 200) {
+        alert("success!")
+      }
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const handleChange = (e) => {
@@ -92,7 +99,7 @@ const AddBonoForm = () => {
                   onChange={handleChange}
                   sx={{ width: "350px" }}
                 >
-                  <MenuItem value={"Bono"}>Bono</MenuItem>
+                  <MenuItem value={"Bond"}>Bond</MenuItem>
                 </Select>
               </Field>
             </div>
@@ -116,6 +123,7 @@ const AddBonoForm = () => {
                     Capital invested
                   </InputLabel>
                   <Input
+                    type='numeric'
                     name="capitalInvested"
                     id="capitalInvested"
                     endAdornment={
@@ -157,7 +165,7 @@ const AddBonoForm = () => {
                   {({ field, form, meta }) => (
                     <div className="flex flex-row items-center gap-4">
                       <InputLabel>Operation Date:</InputLabel>
-                      <Input {...field} type="date" id="operationDate" />
+                      <Input {...field} type="date" id="operationDate" format="YYYY-MM-DD"/>
                     </div>
                   )}
                 </Field>

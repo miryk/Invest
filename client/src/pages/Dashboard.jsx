@@ -3,6 +3,7 @@ import React from "react";
 import BonoCardsHolder from "../components/BonoCardsHolder";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import GeneralGraph from "../components/GeneralGraph";
 
 const Dashboard = () => {
   return (
@@ -20,6 +21,7 @@ const Dashboard = () => {
         <Typography variant="h6" component="h6">
           Vista general
         </Typography>
+        <GeneralGraph />
       </Container>
       <Fab
         color="success"

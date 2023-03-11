@@ -19,6 +19,7 @@ const PaymentRow = ({rows}) => {
                 type="date"
                 id={`payments[${i}].date`}
                 sx={{ padding: "5px" }}
+                format="YYYY-MM-DD"
               />
             </>
           )}

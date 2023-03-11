@@ -10,9 +10,14 @@ const BondsSchema = new mongoose.Schema({
     required: [true, "An Issuing Entity is required"]
   }, 
   capitalInvested: {
-    type: Number,
+    type: String,
     required: [true, "A capital is required"]
   }, 
+  financialAsset:  {
+    type: String,
+    enum: ['Bond', 'Stock'],
+    required: [true, "A category is required"]
+  },
   term: {
     type: Number
   }, 

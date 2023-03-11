@@ -1,3 +1,4 @@
+const { isObjectIdOrHexString } = require('mongoose');
 const {Bonds} = require('../models/bonds.model');
 
 module.exports.test = (req, res) => {
@@ -14,3 +15,15 @@ module.exports.addBond = async (req, res) => {
     res.json(err)
   }
 }
+
+module.exports.getUserBonds = async (req, res) => {
+  try {
+    console.log(req.user)
+    userid = '6406546f38d4e924941e1eb1'
+    const userBonds = await Bonds.find({userID: userid})
+    res.json(userBonds)
+  } catch (err) {
+    res.status(400);
+    res.json(err)
+  }
+} 
