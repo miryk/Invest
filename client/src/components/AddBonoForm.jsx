@@ -23,8 +23,9 @@ const AddBonoForm = () => {
   const [assetType, setAssetType] = useState("Bond");
 
   const handleTimes = () => {
-    setPaymentTimes(paymentTimes+1);
-    console.log(paymentTimes+1)
+    const quant = paymentTimes + 1
+    setPaymentTimes(quant);
+    console.log(paymentTimes)
     console.log(initialValues.payments)
   }
 
@@ -37,7 +38,8 @@ const AddBonoForm = () => {
     term: 0,
     nominalRate: 0,
     operationDate: "",
-    payments: Array(paymentTimes+1).fill({date:"", value:""})
+    payments: Array(paymentTimes).fill({date:"", value:""})
+    // payments: []
     // payments: [{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""},{date:"", value:""}, {date:"", value: ""}]
   };
 
