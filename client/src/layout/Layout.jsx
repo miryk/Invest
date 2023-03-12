@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const navigation = [
   { name: 'Dashboard', href: '/'},
@@ -13,6 +14,16 @@ function classNames(...classes) {
 }
 
 const Layout = () => {
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    const response = await axios.delete(`${import.meta.env.VITE_REACT_API_URL}/api/logout`, {withCredentials: true})
+    console.log(response);
+    if (response.status == 200) {
+      navigate('/login')
+    }
+  }
+
   return (
     <>
     <Disclosure as="nav" className="bg-lime-800">
@@ -97,11 +108,12 @@ const Layout = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/login"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
+                            onClick={handleSignOut}
                           >
                             Sign out
                           </a>

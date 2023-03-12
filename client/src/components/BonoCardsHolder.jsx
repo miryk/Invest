@@ -25,25 +25,19 @@ const bonos = [
   }
 ]
 
-const BonoCardsHolder = () => {
-  const [bonds, setBonds] = useState(null)
-
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}/api/bonds`)
-      setBonds(response.data)
-    }
-  getData()
-  
-  }, [])
+const BonoCardsHolder = ({bonds}) => {
 
   return (
     <div>
     {bonds && bonds.map((bond, idx) =>{
       return (
         <Paper sx={{marginY: 2}} key={"bond"+idx}>
-          <h1>{bond.issuingEntity}</h1>
-          <h2>{bond.operationDate}</h2>
+          <div>
+          <span>Issuing Entity: </span><span>{bond.issuingEntity}</span>
+          </div>
+          <div>
+          <span>Operation Date: </span><span>{bond.operationDate}</span>
+          </div>
         </Paper>
       )
     })}

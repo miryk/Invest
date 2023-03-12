@@ -17,10 +17,12 @@ import { NumericFormat } from "react-number-format";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PaymentRow from "./PaymentRow";
 import axios from 'axios'
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AddBonoForm = () => {
   const [paymentTimes, setPaymentTimes] = useState(5);
   const [assetType, setAssetType] = useState("Bond");
+  const navigate = useNavigate();
 
   const handleTimes = () => {
     const quant = paymentTimes + 1
@@ -30,7 +32,7 @@ const AddBonoForm = () => {
   }
 
   let initialValues = {
-    userID: "6406546f38d4e924941e1eb1",
+    userID: "",
     issuingEntity: "",
     financialAsset: "Bond",
     capitalInvested: 0,
@@ -53,9 +55,10 @@ const AddBonoForm = () => {
   const handleSubmit = async (values, actions) => {
     try {
       console.log(values, "form values");
-      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/newbond`, values);
+      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/newbond`, values, {withCredentials: true});
       if (response.status == 200) {
         alert("success!")
+        navigate('/')
       }
     } catch (err) {
       console.log(err)

@@ -12,20 +12,26 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const onSubmit = (values, actions) => {
-    console.log(values);
+  const onSubmit = async (values, actions) => {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/login`, values, {withCredentials: true})
+    if (response.status == 200) {
+      alert("Succesfully logded in")
+      navigate('/');
+    }
   };
 
   const loginValidationSchema = Yup.object().shape({

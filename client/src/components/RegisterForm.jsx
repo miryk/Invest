@@ -4,10 +4,13 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from 'yup';
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
 
   const initialValues = {
@@ -17,8 +20,18 @@ const RegisterForm = () => {
     confirmPassword: "",
   };
 
-  const onSubmit = (values, actions) => {
-    console.log(values);
+  const onSubmit = async (values, actions) => {
+    try {
+      console.log(values);
+      const {username, email, password} = values;
+      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/register`, values);
+      if (response.status== 200) {
+        console.log("Successfully registered");
+        navegate('/login');
+      } 
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const registerFormValidationSchema = Yup.object().shape({
