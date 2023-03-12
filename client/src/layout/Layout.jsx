@@ -6,7 +6,7 @@ import axios from "axios";
 const navigation = [
   { name: 'Dashboard', href: '/'},
   { name: 'Bonds', href: '/bonos'},
-  { name: 'Projection', href: '/timeline'},
+  // { name: 'Projection', href: '/timeline'},
 ]
 
 function classNames(...classes) {
@@ -25,7 +25,7 @@ const Layout = () => {
   }
 
   return (
-    <>
+    <div className="h-screen">
     <Disclosure as="nav" className="bg-lime-800">
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -128,7 +128,7 @@ const Layout = () => {
         </>
     </Disclosure>
     <Outlet />
-    </>
+    </div>
   );
 };
 

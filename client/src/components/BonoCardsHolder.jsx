@@ -1,6 +1,6 @@
-import { Paper } from '@mui/material'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { Paper } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const bonos = [
   {
@@ -15,35 +15,52 @@ const bonos = [
       {
         date: "02/03/2023",
         value: 595068,
-        typeOfPayment: "Interest"
-      }, {
+        typeOfPayment: "Interest",
+      },
+      {
         date: "28/08/2023",
         value: 588493,
-        typeOfPayment: "Interest"
-      }
-    ]
-  }
-]
+        typeOfPayment: "Interest",
+      },
+    ],
+  },
+];
 
-const BonoCardsHolder = ({bonds}) => {
-
+const BonoCardsHolder = ({ bonds }) => {
   return (
-    <div>
-    {bonds && bonds.map((bond, idx) =>{
-      return (
-        <Paper sx={{marginY: 2}} key={"bond"+idx}>
-          <div>
-          <span>Issuing Entity: </span><span>{bond.issuingEntity}</span>
-          </div>
-          <div>
-          <span>Operation Date: </span><span>{bond.operationDate}</span>
-          </div>
-        </Paper>
-      )
-    })}
-
+    <div className="dashboard-portion my-12">
+      {bonds && bonds.length > 0 ?
+        bonds.map((bond, idx) => {
+          return (
+            <Paper
+              sx={{ marginY: 2, padding: "15px", textAlign: 'start' }}
+              elevation={1}
+              key={"bond" + idx}
+            >
+              <div>
+                <span className="font-bold">Issuing Entity: </span>
+                <span>{bond.issuingEntity}</span>
+              </div>
+              <div>
+                <span className="font-bold">Operation Date: </span>
+                <span>{bond.operationDate.slice(0, 10)}</span>
+              </div>
+              <div>
+                <span className="font-bold">Capital Invested: </span>
+                <span>{bond.capitalInvested} Gs</span>
+              </div>
+            </Paper>
+          );
+        })
+      :
+      <Paper
+        sx={{ margin: 2, padding: '10px'}}
+      >
+        <h1>You don't have bonds yet! Add and view here!</h1>
+      </Paper>
+      }
     </div>
-  )
-}
+  );
+};
 
-export default BonoCardsHolder
+export default BonoCardsHolder;

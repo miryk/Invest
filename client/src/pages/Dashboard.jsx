@@ -1,4 +1,4 @@
-import { Container, Fab, Typography } from "@mui/material";
+import { Box, Container, Fab, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BonoCardsHolder from "../components/BonoCardsHolder";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,7 +18,7 @@ const Dashboard = () => {
         );
         if (response.status == 200) {
           setBonds(response.data);
-          console.log(response.data)
+          // console.log(response.data)
         }
       } catch (err) {
         console.log(err);
@@ -29,22 +29,21 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ display: "flex", textAlign: "center", gap: 3 }}
+    <Box
+      sx={{ display: "flex", textAlign: "center", backgroundColor: 'rgba(218, 221, 188, 0.5)', paddingX: '40px'}}
     >
-      <Container sx={{ bgcolor: "gray", flex: 1 }}>
-        <Typography variant="h6" component="h6">
-          Tus bonos
+      <Paper elevation={5} sx={{ flex: 1, padding: 4, margin: '20px', bgcolor: 'white' }}>
+        <Typography variant="h4" component="h6">
+          Your Bonds
         </Typography>
         <BonoCardsHolder bonds={bonds}/>
-      </Container>
-      <Container sx={{ bgcolor: "pink", flex: 2 }}>
-        <Typography variant="h6" component="h6">
-          Vista general
+      </Paper>
+      <Paper elevation={5} sx={{ flex: 2, padding: 4, margin: '20px', bgcolor: 'white' }}>
+        <Typography variant="h4" component="h6">
+          General View 
         </Typography>
-        <GeneralGraph />
-      </Container>
+        <GeneralGraph bonds={bonds}/>
+      </Paper>
       <Fab
         color="success"
         variant="extended"
@@ -56,7 +55,7 @@ const Dashboard = () => {
           <p>Add</p>
         </Link>
       </Fab>
-    </Container>
+    </Box>
   );
 };
 

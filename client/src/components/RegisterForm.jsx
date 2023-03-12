@@ -27,7 +27,7 @@ const RegisterForm = () => {
       const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/register`, values);
       if (response.status== 200) {
         console.log("Successfully registered");
-        navegate('/login');
+        navigate('/login');
       } 
     } catch (err) {
       console.log(err)

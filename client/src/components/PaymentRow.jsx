@@ -9,7 +9,7 @@ const PaymentRow = ({rows}) => {
 
   let renderRows = [];
   for (let i=1; i<=rows; i++) {
-    renderRows.push(        <li key={'row'+(i-1)}>
+    renderRows.push(        <li key={'row'+(i-1)} className="my-3">
       <div className="flex flex-row items-center gap-4">
         <Field name={`payments[${i-1}].date`} dateAdapter={AdapterDayjs}>
           {({ field, form, meta }) => (
