@@ -1,13 +1,13 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Paper, Typography } from "@mui/material";
 import React from "react";
 import AddBonoForm from "../components/AddBonoForm";
 
 const AddNewBono = () => {
   return (
-    <Container maxWidth="lg" sx={{marginTop: '20px'}}>
+    <Paper sx={{margin: '30px', paddingY: '20px'}}>
       <Typography variant='h4' component='h3' className="text-center">New Bonds</Typography>
       <AddBonoForm />
-    </Container>
+    </Paper>
   );
 };
 

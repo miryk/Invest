@@ -15,8 +15,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,10 +28,22 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (values, actions) => {
-    const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/login`, values, {withCredentials: true})
-    if (response.status == 200) {
-      alert("Succesfully logded in")
-      navigate('/');
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/login`, values, {withCredentials: true})
+      if (response.status == 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Great!!!",
+          text: `Logged in successfully!`,
+        });
+        navigate('/');
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Ops!!!",
+        text: `Error: ${err?.response?.data?.message || err.message}`,
+      });
     }
   };
 

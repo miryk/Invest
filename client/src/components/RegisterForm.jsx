@@ -6,6 +6,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,11 +28,21 @@ const RegisterForm = () => {
       const {username, email, password} = values;
       const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/register`, values);
       if (response.status== 200) {
-        console.log("Successfully registered");
+        // console.log("Successfully registered");
+        Swal.fire({
+          icon: "success",
+          title: "Great!!!",
+          text: `Successfully registered!`,
+        });
         navigate('/login');
       } 
     } catch (err) {
       console.log(err)
+      Swal.fire({
+        icon: "error",
+        title: "Ops!!!",
+        text: `Error: ${err?.response?.data?.message || err.message}`,
+      });
     }
   };
 

@@ -10,7 +10,7 @@ module.exports = (passport) => {
       passwordField: 'password'
     }, async (email, password, done) => {
       try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({email: email});
         // if user does not exist
         if (!user) {
           return done(null, false, {message: "User not registered"})

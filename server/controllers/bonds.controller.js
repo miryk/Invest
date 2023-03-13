@@ -9,7 +9,7 @@ module.exports.addBond = async (req, res) => {
   try {
     const {userID, issuingEntity, financialAsset, capitalInvested, series, term, nominalRate, operationDate, payments } = req.body
     // console.log(userID)
-    console.log(req.user._id)
+    // console.log(req.user._id)
     const newBond = await Bonds.create({
       userID: req.user._id,
       issuingEntity: issuingEntity,
@@ -31,7 +31,7 @@ module.exports.addBond = async (req, res) => {
 
 module.exports.getUserBonds = async (req, res) => {
   try {
-    console.log(req.user)
+    // console.log(req.user)
     // userid = '6406546f38d4e924941e1eb1'
     const userBonds = await Bonds.find({userID: req.user._id}).sort({ operationDate: 1 })
     res.json(userBonds)

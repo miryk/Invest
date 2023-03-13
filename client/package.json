@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-number-format": "^5.1.4",
     "react-router-dom": "^6.8.2",
+    "sweetalert2": "^11.7.3",
     "yup": "^1.0.2"
   },
   "devDependencies": {

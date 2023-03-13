@@ -28,14 +28,14 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.loginUser = async (req, res, next) => {
   passport.authenticate("local",  (err, user, info) => {
-    console.log(info)
+    // console.log(info)
     if (err) throw err;
-    if (!user) res.send("No User exists"); 
+    if (!user) res.status(400).json({message: "Mail or password incorrect"}); 
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send("Succesfully Authenticated");
-        console.log(req.user)
+        // console.log(req.user)
       })
     }
   })(req, res, next)

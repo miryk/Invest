@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   return (
     <Box
-      sx={{ display: "flex", textAlign: "center", backgroundColor: 'rgba(218, 221, 188, 0.5)', paddingX: '40px'}}
+      sx={{ display: "flex", textAlign: "center", paddingX: '40px'}}
     >
       <Paper elevation={5} sx={{ flex: 1, padding: 4, margin: '20px', bgcolor: 'white' }}>
         <Typography variant="h4" component="h6">
