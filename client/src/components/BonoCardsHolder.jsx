@@ -92,7 +92,8 @@ const BonoCardsHolder = ({ bonds, setBonds }) => {
                 position: "relative",
                 cursor: "pointer",
                 "&:hover": {
-                  backgroundColor: "#ededed",
+                  backgroundColor: "#f5f5f5",
+                  border: '1px solid black'
                 },
               }}
               elevation={1}
@@ -118,7 +119,9 @@ const BonoCardsHolder = ({ bonds, setBonds }) => {
                 onClick={() => handleDelete(bond._id)}
                 sx={{ position: "absolute", top: "3px", right: "3px" }}
               >
-                <DeleteForeverIcon color="error" />
+                <DeleteForeverIcon color="error" sx={{color: 'rgba(244, 67, 54, .7)', "&:hover": {
+                  color: "rgb(244,67,54)"
+                }}} />
               </IconButton>
             </Paper>
           );
