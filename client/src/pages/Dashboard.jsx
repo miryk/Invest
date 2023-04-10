@@ -14,7 +14,8 @@ const Dashboard = () => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_REACT_API_URL}/api/bonds`, {withCredentials: true}
+          `${import.meta.env.VITE_REACT_API_URL}/api/bonds`,
+          { withCredentials: true }
         );
         if (response.status == 200) {
           setBonds(response.data);
@@ -29,20 +30,25 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Box
-      sx={{ display: "flex", textAlign: "center", paddingX: '40px'}}
-    >
-      <Paper elevation={5} sx={{ flex: 1, padding: 4, margin: '20px', bgcolor: 'white' }}>
+    <Box sx={{ display: "flex", textAlign: "center", paddingX: "40px" }}>
+      <Paper
+        elevation={5}
+        sx={{ flex: 1, padding: 4, margin: "20px", bgcolor: "white" }}
+      >
         <Typography variant="h4" component="h6">
           Your Bonds
         </Typography>
-        <BonoCardsHolder bonds={bonds}/>
+        {/* make it so that bonds can be deleted */}
+        <BonoCardsHolder bonds={bonds} setBonds={setBonds} />
       </Paper>
-      <Paper elevation={5} sx={{ flex: 2, padding: 4, margin: '20px', bgcolor: 'white' }}>
+      <Paper
+        elevation={5}
+        sx={{ flex: 2, padding: 4, margin: "20px", bgcolor: "white" }}
+      >
         <Typography variant="h4" component="h6">
-          General View 
+          General View
         </Typography>
-        <GeneralGraph bonds={bonds}/>
+        <GeneralGraph bonds={bonds} />
       </Paper>
       <Fab
         color="success"
