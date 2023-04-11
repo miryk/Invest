@@ -63,12 +63,12 @@ const BonoCardsHolder = ({ bonds, setBonds }) => {
     try {
       Swal.fire({
         title: "Are you sure you want to delete this?",
-        text: "It is irreversible",
+        text: "You can't reverse this",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "SI, eliminalo ahora!",
+        confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
           deleteBond(id);
